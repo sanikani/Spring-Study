@@ -39,7 +39,7 @@
         <div>
             <label for="price" th:text="#{label.item.price}">가격</label>
             <input type="text" id="price" th:field="*{price}"
-                   th:class="${errors?.containsKey('price')? 'form-control field-error':'form-control'}"
+                   th:class="${errors?.containsKey('price')}? 'form-control field-error':'form-control'"
                    class="form-control" placeholder="가격을 입력하세요">
             <div class="field-error" th:if="${errors?.containsKey('price')}" th:text="${errors['price']}">
                 가격 오류
@@ -50,7 +50,7 @@
             <input type="text" id="quantity" th:field="*{quantity}"
                    th:classappend="${errors?.containsKey('quantity')}? 'field-error': _"
                    class="form-control" placeholder="수량을 입력하세요">
-            <div class="field-error" th:if="${errors.containsKey('quantity')}" th:text="${errors['quantity']}">
+            <div class="field-error" th:if="${errors?.containsKey('quantity')}" th:text="${errors['quantity']}">
                 수량 오류
             </div>
         </div>
