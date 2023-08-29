@@ -1,17 +1,15 @@
-package hello.login.web.member;
+package hello.login.web.login;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class Member {
-    private Long id;
+public class LoginForm {
+
     @NotEmpty
     private String loginId;
-    @NotEmpty
-    private String name;
+
     @NotEmpty
     private String password;
 }
