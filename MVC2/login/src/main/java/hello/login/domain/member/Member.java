@@ -1,4 +1,4 @@
-package hello.login.domain.item.member;
+package hello.login.domain.member;
 
 import lombok.Data;
 
