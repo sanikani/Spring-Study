@@ -21,10 +21,19 @@ public class LogFilter implements Filter {
 
         String uuid = UUID.randomUUID().toString();
 
+        try {
+            log.info("REQUEST [{}][{}]", uuid, requestURI);
+            chain.doFilter(request, response);
+        } catch (Exception e) {
+            throw e;
+        }finally {
+            log.info("RESPONSE [{}][{}]", uuid, requestURI);
+        }
+
     }
 
     @Override
     public void destroy() {
-        Filter.super.destroy();
+        log.info("log filter destroy");
     }
 }
