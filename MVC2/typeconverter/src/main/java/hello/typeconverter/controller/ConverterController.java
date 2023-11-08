@@ -37,7 +37,6 @@ public class ConverterController {
     @Data
     static class Form {
         private IpPort ipPort;
-
         public Form(IpPort ipPort) {
             this.ipPort = ipPort;
         }

@@ -21,6 +21,5 @@ public class MyNumberFormatter implements Formatter<Number> {
     public String print(Number object, Locale locale) {
         log.info("object={}, locale={}", object, locale);
         return NumberFormat.getInstance(locale).format(object);
-
     }
 }
