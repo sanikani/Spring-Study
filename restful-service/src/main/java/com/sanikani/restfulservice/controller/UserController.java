@@ -3,6 +3,7 @@ package com.sanikani.restfulservice.controller;
 import com.sanikani.restfulservice.bean.User;
 import com.sanikani.restfulservice.dao.UserDaoService;
 import com.sanikani.restfulservice.excetion.UserNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
