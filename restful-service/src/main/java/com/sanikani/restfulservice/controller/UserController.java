@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "user-controller", description = "사용자 서비스를 위한 컨트롤러")
+@Slf4j
 public class UserController {
     private final UserDaoService service;
 
@@ -39,7 +41,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "USER NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR"),
-            })
+    })
     @GetMapping("/users/{id}")
     public EntityModel<User> retrieveUser(
             @Parameter(description = "사용자 ID", required = true, example = "1") @PathVariable int id) {
@@ -62,6 +64,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
+        log.info("ssn={},password={},name={},joinDate={}", savedUser.getSsn(), savedUser.getPassword(), savedUser.getName(), savedUser.getJoinDate());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
