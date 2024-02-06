@@ -1,17 +1,11 @@
 package com.sanikani.restfulservice.controller;
 
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.sanikani.restfulservice.bean.AdminUser;
 import com.sanikani.restfulservice.bean.User;
-import com.sanikani.restfulservice.bean.UserResponse;
-import com.sanikani.restfulservice.bean.UsersResponseWithCnt;
+import com.sanikani.restfulservice.bean.UserListResponse;
 import com.sanikani.restfulservice.excetion.UserNotFoundException;
 import com.sanikani.restfulservice.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,21 +63,28 @@ public class UserJpaController {
         return ResponseEntity.created(location).build();
     }
 
+//    @GetMapping("/users")
+//    public ResponseEntity<UserListResponse> retrieveAllUsers() {
+//        List<User> users = userRepository.findAll();
+//        UserListResponse response = UserListResponse.builder()
+//                .count(users.size())
+//                .users(users)
+//                .build();
+//        return ResponseEntity.ok(response);
+//    }
     @GetMapping("/users")
-    public ResponseEntity<UsersResponseWithCnt> retrieveAllUsers() {
+    public ResponseEntity retrieveAllUsers() {
         List<User> users = userRepository.findAll();
-        UsersResponseWithCnt response = new UsersResponseWithCnt();
+        UserListResponse response = UserListResponse.builder()
+                .count(users == null || users.isEmpty() ? 0 : users.size())
+                .users(users)
+                .build();
 
+        EntityModel entityModel = EntityModel.of(response);
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        entityModel.add(linkTo.withSelfRel());
 
-        UserResponse userResponse = null;
-        for (User user : users) {
-            userResponse = new UserResponse();
-            BeanUtils.copyProperties(user, userResponse);
-
-            response.getUsers().add(userResponse);
-        }
-        return ResponseEntity.ok(response);
-
+        return ResponseEntity.ok(entityModel);
     }
 
 }
