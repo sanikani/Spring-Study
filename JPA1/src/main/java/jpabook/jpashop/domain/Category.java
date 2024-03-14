@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Category {
-
     @Id
     @GeneratedValue
     @Column(name = "category_id")
@@ -33,5 +32,8 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
 }

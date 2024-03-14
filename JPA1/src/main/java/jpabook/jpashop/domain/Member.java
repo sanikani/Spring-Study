@@ -1,5 +1,4 @@
 package jpabook.jpashop.domain;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Member {
+
     @Id
     @GeneratedValue
     @Column(name = "member_id")
@@ -23,4 +23,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+
 }
