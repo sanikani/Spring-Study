@@ -35,7 +35,6 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private OrderStatus orderStatus;
 
     public void setMember(Member member) {

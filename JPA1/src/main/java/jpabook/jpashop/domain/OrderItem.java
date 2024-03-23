@@ -48,7 +48,6 @@ public class OrderItem {
     }
 
     //==조회 로직==//
-
     /**
      * 주문 상품 전체 가격 조회
      */
