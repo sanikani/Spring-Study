@@ -1,6 +1,5 @@
 package jpabook.jpashop.repository.order.query;
 
-import jpabook.jpashop.domain.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -72,5 +71,16 @@ public class OrderQueryRepository {
                 .map(OrderQueryDto::getOrderId)
                 .collect(Collectors.toList());
         return orderIds;
+    }
+
+    public List<OrderFlatDto> findAllByDto_flat() {
+        return em.createQuery(
+                        "select new jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.orderStatus, d.address, i.name, oi.orderPrice, oi.count)" +
+                                " from Order o" +
+                                " join o.member m" +
+                                " join o.delivery d" +
+                                " join o.orderItems oi" +
+                                " join oi.item i", OrderFlatDto.class)
+                .getResultList();
     }
 }
