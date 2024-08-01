@@ -1,5 +1,8 @@
 package sample.cafekiosk.unit;
 
+import sample.cafekiosk.unit.beverages.Americano;
+import sample.cafekiosk.unit.beverages.Latte;
+
 public class CafeKioskRunner {
 
     public static void main(String[] args) {

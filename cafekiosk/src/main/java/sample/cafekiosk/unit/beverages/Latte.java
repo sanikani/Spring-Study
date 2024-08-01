@@ -1,6 +1,6 @@
-package sample.cafekiosk.unit;
+package sample.cafekiosk.unit.beverages;
 
-public class Latte implements Beverage{
+public class Latte implements Beverage {
     @Override
     public String getName() {
         return "라떼";
