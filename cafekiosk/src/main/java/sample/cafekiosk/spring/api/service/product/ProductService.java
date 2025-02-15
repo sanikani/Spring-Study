@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
-import sample.cafekiosk.spring.domain.product.ProductSellingType;
+import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-//    public List<ProductResponse> getSellingProducts() {
-//        List<Product> products = productRepository.findAllBySellingTypeIn(ProductSellingType.forDisplay());
-//       return products.stream().map(product -> ProductResponse.of(product)).toList();
-//    }
+    public List<ProductResponse> getSellingProducts() {
+        List<Product> products = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
+       return products.stream().map(ProductResponse::of).toList();
+    }
 }
