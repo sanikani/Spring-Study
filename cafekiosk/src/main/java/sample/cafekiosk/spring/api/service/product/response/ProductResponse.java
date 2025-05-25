@@ -13,15 +13,17 @@ public class ProductResponse {
     private ProductType type;
     private ProductSellingStatus sellingStatus;
     private String name;
+    private String productNumber;
     private int price;
 
     @Builder
-    public ProductResponse(Long id, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
+    public ProductResponse(Long id, ProductType type, ProductSellingStatus sellingStatus, String name, int price, String productNumber) {
         this.id = id;
         this.type = type;
         this.sellingStatus = sellingStatus;
         this.name = name;
         this.price = price;
+        this.productNumber = productNumber;
     }
 
     public static ProductResponse of(Product product) {
@@ -31,6 +33,7 @@ public class ProductResponse {
                 .sellingStatus(product.getSellingStatus())
                 .name(product.getName())
                 .price(product.getPrice())
+                .productNumber(product.getProductNumber())
                 .build();
     }
 }
